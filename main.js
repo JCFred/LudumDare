@@ -12,7 +12,8 @@ $(document).ready(function() {
 //set game variables
 var roomSize = 20,
   gridSize = 35,
-  turnNumber = 0;
+  turnNumber = 0,
+  hunger = 200;
 
 //game step engine variables
 var timestep = 1000/5, //this sets the speed to 30 fps
@@ -63,7 +64,8 @@ function mainLoop(timestamp) {
   }
 
   // Food counter
-  console.log($('#gameWindow').children("div").children('.food').length)
+  hunger -= $('#gameWindow').children("div").children('.food').length
+  $('#hunger').css('width', hunger + 'px')
 
   requestAnimationFrame(mainLoop);
 }
@@ -104,6 +106,7 @@ function movePlayer(direction){
 
   // Remove food div if player moves into food, reload page if player moves into enemy
   if($('#'+newY+"_"+newX).has('.food').length){
+      hunger += 20
       $('#'+newY+"_"+newX).children('.food').remove()
   }else if($('#'+newY+"_"+newX).has('.enemyRow').length || $('#'+newY+"_"+newX).has('.enemyCol').length){
       location.reload()
