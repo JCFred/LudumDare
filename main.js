@@ -64,8 +64,8 @@ function movePlayer(direction){
   let currentDiv = $('#player').parent()
   let divId = currentDiv[0].id
   let divPos = getPos(divId)
-  let newY = divPos[0]
-  let newX = divPos[1]
+  let newY = Number(divPos[0])
+  let newX = Number(divPos[1])
 
   switch(direction){
     case "up":
@@ -83,6 +83,7 @@ function movePlayer(direction){
   }
   var player = $('#player')
   $('#'+newY+"_"+newX).append(player)
+  console.log(newY+"_"+newX);
 }
 
 function getPos(id){
