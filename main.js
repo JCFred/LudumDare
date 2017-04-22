@@ -64,7 +64,7 @@ function mainLoop(timestamp) {
   }
 
   // Food counter
-  hunger -= $('#gameWindow').children("div").children('.food').length
+  hunger -= Math.floor($('#gameWindow').children("div").children('.food').length * 0.5)
   $('#hunger').css('width', hunger + 'px')
 
   requestAnimationFrame(mainLoop);
@@ -108,7 +108,9 @@ function movePlayer(direction){
   if($('#'+newY+"_"+newX).has('.food').length){
       hunger += 20
       $('#'+newY+"_"+newX).children('.food').remove()
-  }else if($('#'+newY+"_"+newX).has('.enemyRow').length || $('#'+newY+"_"+newX).has('.enemyCol').length){
+  }
+  
+  if($('#'+newY+"_"+newX).has('.enemyRow').length || $('#'+newY+"_"+newX).has('.enemyCol').length){
       location.reload()
   }
 
