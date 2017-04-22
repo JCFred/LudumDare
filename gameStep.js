@@ -2,6 +2,7 @@
 function gameStep() {
     if (turnNumber % 5 === 0) {
         enemySpawn('row')
+        foodSpawn()
     } else if (turnNumber % 7 === 0) {
         enemySpawn('col')
     }
@@ -36,4 +37,14 @@ function enemySpawn(dir) {
         $('#' + (roomSize - 1) + '_' + pos).append(tempEnemy)
         break
     }
+}
+
+function foodSpawn() {
+    // Randomly position the food, not on the perimeter
+    let x = Math.floor(Math.random() * (roomSize-2)) + 1
+    let y = Math.floor(Math.random() * (roomSize-2)) + 1
+
+    let tempFood = document.createElement('div')
+    tempFood.className = 'food'
+    $('#' + x + '_' + y).append(tempFood)
 }

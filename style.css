@@ -29,6 +29,13 @@ main{
 .enemyCol{
   background-color: green;
 }
+.food{
+    background-color: yellow;
+    border-radius: 50%;
+
+    width: 32px;
+    height:32px;
+}
 #player{
   background-color: blue;
   border-radius: 50%;
