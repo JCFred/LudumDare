@@ -38,19 +38,23 @@ function mainLoop(timestamp) {
       document.onkeydown = function() {
         switch (event.keyCode) {
         case 38:
-            console.log("Up key is pressed");
+            //console.log("Up key is pressed");
+            playerSprite = "url(./Public/sprites/phyto_up.png) "
             movePlayer('up')
             break;
         case 40:
-            console.log("Down key is pressed");
+            //console.log("Down key is pressed");
+            playerSprite = "url(./Public/sprites/phyto_down.png) "
             movePlayer('down')
             break;
         case 37:
-            console.log("left key is pressed");
+            //console.log("left key is pressed");
+            playerSprite = "url(./Public/sprites/phyto_left.png) "
             movePlayer('left')
             break;
         case 39:
-            console.log("Right key is pressed");
+            //console.log("Right key is pressed");
+            playerSprite = "url(./Public/sprites/phyto_right.png) "
             movePlayer('right')
             break;
         }
@@ -227,3 +231,25 @@ function drawWindow(){
   $('#6_10').append(player)
 
 }
+
+//player animation
+var playerSprite = "url(./Public/sprites/phyto_up.png) "
+function spritePlayer() {
+  var x = 0 - offset
+  var playerUp = document.querySelector("#player");
+  playerUp.style.background = playerSprite + x + 'px 0px'
+}
+// sprite()
+var offset = 0
+function animatePlayer(time) {
+  var width = 32
+  var height = 32
+  if (offset > 128) {
+    offset = 0
+  }
+  setInterval(function() {
+      spritePlayer()
+      offset = offset + width
+  }, time)
+}
+animatePlayer(166)
