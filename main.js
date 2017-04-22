@@ -100,11 +100,18 @@ function movePlayer(direction){
 
 //run a game step
 function gameStep(){
+  //spawn enemies
   if(turnNumber % 5 === 0){
     enemySpawn('row')
   } else if (turnNumber % 7 === 0) {
     enemySpawn('col')
   }
+
+  //move enemies
+  let rowClass = document.getElementsByClassName('enemyRow')
+  let colClass = document.getElementsByClassName('enemyCol')
+  if(rowClass.length){
+
 }
 
 //spawn an enemy
@@ -118,21 +125,27 @@ function enemySpawn(dir){
     dir += 'B'
   }
   let tempEnemy = document.createElement('div')
+  //attmpted to set an increasing age of each enemy to know if they had just spawned
+  //tempEnemy.setAttribute('age', 0)
   switch(dir){
     case 'rowA':
       tempEnemy.className = 'enemyRow'
+      tempEnemy.name = 1
       $('#'+pos+"_0").append(tempEnemy)
       break;
     case 'rowB':
       tempEnemy.className = 'enemyRow'
+      tempEnemy.name = -1
       $('#'+pos+"_"+(roomSize-1)).append(tempEnemy)
       break;
     case 'colA':
       tempEnemy.className = 'enemyCol'
+      tempEnemy.name = 1
       $('#0_'+pos).append(tempEnemy)
       break;
     case 'colB':
       tempEnemy.className = 'enemyCol'
+      tempEnemy.name = -1
       $('#'+(roomSize-1)+'_'+pos).append(tempEnemy)
       break;
   }
