@@ -62,6 +62,9 @@ function mainLoop(timestamp) {
       delta -= timestep;
   }
 
+  // Food counter
+  console.log($('#gameWindow').children("div").children('.food').length)
+
   requestAnimationFrame(mainLoop);
 }
 
@@ -105,7 +108,7 @@ function movePlayer(direction){
   }else if($('#'+newY+"_"+newX).has('.enemyRow').length || $('#'+newY+"_"+newX).has('.enemyCol').length){
       location.reload()
   }
-  
+
   $('#'+newY+"_"+newX).append(player)
   // console.log(player);
   // console.log(newY+"_"+newX);
