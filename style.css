@@ -1,0 +1,33 @@
+main{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gridBox{
+  border:1px solid black;
+  background-color: grey;
+  box-sizing: border-box;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  
+  width: 15px;
+  height:15px;
+}
+
+#player{
+  background-color: red;
+  border-radius: 50%;
+
+  width: 12px;
+  height:12px;
+}
+#gameWindow{
+  border:1px solid black;
+  box-sizing: content-box;
+  display:flex;
+  flex-wrap:wrap;
+  width: 675px;
+  height:675px;
+}
