@@ -41,21 +41,25 @@ function mainLoop(timestamp) {
         case 38:
             //console.log("Up key is pressed");
             playerSprite = "url(./Public/sprites/phyto_up.png) "
+            decrementHunger(1)
             movePlayer('up')
             break;
         case 40:
             //console.log("Down key is pressed");
             playerSprite = "url(./Public/sprites/phyto_down.png) "
+            decrementHunger(1)
             movePlayer('down')
             break;
         case 37:
             //console.log("left key is pressed");
             playerSprite = "url(./Public/sprites/phyto_left.png) "
+            decrementHunger(1)
             movePlayer('left')
             break;
         case 39:
             //console.log("Right key is pressed");
             playerSprite = "url(./Public/sprites/phyto_right.png) "
+            decrementHunger(1)
             movePlayer('right')
             break;
         }
@@ -63,11 +67,15 @@ function mainLoop(timestamp) {
       delta -= timestep;
   }
 
-  // Food counter
-  hunger -= Math.floor($('#gameWindow').children("div").children('.food').length * 0.5)
-  $('#hunger').css('width', hunger + 'px')
+  // Reduce hunger
+  decrementHunger(1)
 
   requestAnimationFrame(mainLoop);
+}
+
+function decrementHunger(amount) {
+    hunger -= amount
+    $('#hunger').css('width', hunger + 'px')
 }
 
 //move player and run a single gaem step
@@ -109,7 +117,7 @@ function movePlayer(direction){
       hunger += 20
       $('#'+newY+"_"+newX).children('.food').remove()
   }
-  
+
   if($('#'+newY+"_"+newX).has('.enemyRow').length || $('#'+newY+"_"+newX).has('.enemyCol').length){
       location.reload()
   }
