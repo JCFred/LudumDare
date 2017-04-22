@@ -11,7 +11,8 @@ $(document).ready(function() {
 
 //set game variables
 var roomSize = 20,
-  gridSize = 35
+  gridSize = 35,
+  turnNumber = 0;
 
 //game step engine variables
 var timestep = 1000/5, //this sets the speed to 30 fps
@@ -60,13 +61,22 @@ function mainLoop(timestamp) {
   requestAnimationFrame(mainLoop);
 }
 
+//move player and run a single gaem step
 function movePlayer(direction){
+  //add to turns
+  turnNumber += 1
+  $('#turnText').text(turnNumber)
+
+  //move enemies
+  gameStep()
+
+  //get player's new div
   let currentDiv = $('#player').parent()
   let divId = currentDiv[0].id
   let divPos = getPos(divId)
+
   let newY = Number(divPos[0])
   let newX = Number(divPos[1])
-
   switch(direction){
     case "up":
       newY -= 1
@@ -81,11 +91,54 @@ function movePlayer(direction){
       newX -= 1
       break;
   }
+
+  //move player to new div
   var player = $('#player')
   $('#'+newY+"_"+newX).append(player)
   console.log(newY+"_"+newX);
 }
 
+//run a game step
+function gameStep(){
+  if(turnNumber % 5 === 0){
+    enemySpawn('row')
+  } else if (turnNumber % 7 === 0) {
+    enemySpawn('col')
+  }
+}
+
+//spawn an enemy
+function enemySpawn(dir){
+  min = Math.ceil(0);
+  max = Math.floor(roomSize);
+  let pos = Math.floor(Math.random() * (max - min)) + min;
+  if(pos % 2 === 0){
+    dir += 'A'
+  } else {
+    dir += 'B'
+  }
+  let tempEnemy = document.createElement('div')
+  switch(dir){
+    case 'rowA':
+      tempEnemy.className = 'enemyRow'
+      $('#'+pos+"_0").append(tempEnemy)
+      break;
+    case 'rowB':
+      tempEnemy.className = 'enemyRow'
+      $('#'+pos+"_"+(roomSize-1)).append(tempEnemy)
+      break;
+    case 'colA':
+      tempEnemy.className = 'enemyCol'
+      $('#0_'+pos).append(tempEnemy)
+      break;
+    case 'colB':
+      tempEnemy.className = 'enemyCol'
+      $('#'+(roomSize-1)+'_'+pos).append(tempEnemy)
+      break;
+  }
+}
+
+//find a div's position by its assigned ID
 function getPos(id){
   let arr = []
   for(let i =0; i< id.length; i ++){
@@ -97,7 +150,7 @@ function getPos(id){
   }
 }
 
-
+//initialize the game
 function drawWindow(){
   let window = $('#gameWindow')
   for(let x = 0;x < roomSize; x++){
