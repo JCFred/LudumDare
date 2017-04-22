@@ -11,23 +11,23 @@ main{
   display:flex;
   justify-content: center;
   align-items: center;
-  
-  width: 15px;
-  height:15px;
+
+  width: 36px;
+  height:36px;
 }
 
 #player{
   background-color: red;
   border-radius: 50%;
 
-  width: 12px;
-  height:12px;
+  width: 32px;
+  height:32px;
 }
 #gameWindow{
   border:1px solid black;
   box-sizing: content-box;
   display:flex;
   flex-wrap:wrap;
-  width: 675px;
-  height:675px;
+  width: 720px;
+  height:720px;
 }

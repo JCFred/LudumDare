@@ -10,8 +10,8 @@ $(document).ready(function() {
 })
 
 //set game variables
-var roomSize = 45,
-  gridSize = 15
+var roomSize = 20,
+  gridSize = 35
 
 //game step engine variables
 var timestep = 1000/5, //this sets the speed to 30 fps
@@ -112,6 +112,6 @@ function drawWindow(){
   }
   var player = document.createElement('div')
   player.id = 'player'
-  $('#16_16').append(player)
+  $('#6_10').append(player)
 
 }
