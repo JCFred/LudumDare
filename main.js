@@ -98,9 +98,14 @@ function movePlayer(direction){
 
   //move player to new div
   var player = $('#player')
+
+  // Remove food div if player moves into food, reload page if player moves into enemy
   if($('#'+newY+"_"+newX).has('.food').length){
       $('#'+newY+"_"+newX).children('.food').remove()
+  }else if($('#'+newY+"_"+newX).has('.enemyRow').length || $('#'+newY+"_"+newX).has('.enemyCol').length){
+      location.reload()
   }
+  
   $('#'+newY+"_"+newX).append(player)
   // console.log(player);
   // console.log(newY+"_"+newX);
