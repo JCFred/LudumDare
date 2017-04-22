@@ -119,7 +119,12 @@ function gameStep(){
       let oldDiv = $('#'+enemyPos[0]+"_"+enemyPos[1])
       let newX = enemyPos[0]
       let newY = Number(enemyPos[1]) + Number(move)
-      $('#'+newX+"_"+newY).append(rowClass[i])
+      if(newY === 0 || newY === roomSize -1){
+        //oldDiv.removeChild(rowClass[i])
+        rowClass[i].remove()
+      } else {
+        $('#'+newX+"_"+newY).append(rowClass[i])
+      }
     }
   }
   let colClass = document.getElementsByClassName('enemyCol')
@@ -131,7 +136,11 @@ function gameStep(){
       let oldDiv = $('#'+enemyPos[0]+"_"+enemyPos[1])
       let newX = Number(enemyPos[0]) + Number(move)
       let newY = enemyPos[1]
-      $('#'+newX+"_"+newY).append(colClass[i])
+      if(newX === 0 || newX === roomSize -1){
+        colClass[i].remove()
+      } else {
+        $('#'+newX+"_"+newY).append(colClass[i])
+      }
     }
   }
 
