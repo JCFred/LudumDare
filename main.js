@@ -111,23 +111,27 @@ function gameStep(){
 
   //move enemies
   let rowClass = document.getElementsByClassName('enemyRow')
-  let colClass = document.getElementsByClassName('enemyCol')
   if(rowClass.length){
     for (var i = 0; i < rowClass.length; i++) {
       let enemy = rowClass[i].parentElement
       let enemyPos = getPos(enemy.id)
       let move = rowClass[i].name
-      //console.log(enemyPos);
-      console.log(rowClass[i]);
       let oldDiv = $('#'+enemyPos[0]+"_"+enemyPos[1])
       let newX = enemyPos[0]
       let newY = Number(enemyPos[1]) + Number(move)
-      console.log(newX);
-      console.log(newY);
       $('#'+newX+"_"+newY).append(rowClass[i])
-      console.log(oldDiv);
-      //console.log(newDiv);
-      //newDiv.appendChild(rowClass[i])
+    }
+  }
+  let colClass = document.getElementsByClassName('enemyCol')
+  if(colClass.length){
+    for (var i = 0; i < colClass.length; i++) {
+      let enemy = colClass[i].parentElement
+      let enemyPos = getPos(enemy.id)
+      let move = colClass[i].name
+      let oldDiv = $('#'+enemyPos[0]+"_"+enemyPos[1])
+      let newX = Number(enemyPos[0]) + Number(move)
+      let newY = enemyPos[1]
+      $('#'+newX+"_"+newY).append(colClass[i])
     }
   }
 
