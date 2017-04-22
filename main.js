@@ -94,9 +94,12 @@ function movePlayer(direction){
 
   //move player to new div
   var player = $('#player')
+  if($('#'+newY+"_"+newX).has('.food').length){
+      $('#'+newY+"_"+newX).children('.food').remove()
+  }
   $('#'+newY+"_"+newX).append(player)
-  console.log(player);
-  console.log(newY+"_"+newX);
+  // console.log(player);
+  // console.log(newY+"_"+newX);
 }
 
 //run a game step
