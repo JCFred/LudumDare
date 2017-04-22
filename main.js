@@ -95,6 +95,7 @@ function movePlayer(direction){
   //move player to new div
   var player = $('#player')
   $('#'+newY+"_"+newX).append(player)
+  console.log(player);
   console.log(newY+"_"+newX);
 }
 
@@ -111,13 +112,30 @@ function gameStep(){
   let rowClass = document.getElementsByClassName('enemyRow')
   let colClass = document.getElementsByClassName('enemyCol')
   if(rowClass.length){
+    for (var i = 0; i < rowClass.length; i++) {
+      let enemy = rowClass[i].parentElement
+      let enemyPos = getPos(enemy.id)
+      let move = rowClass[i].name
+      //console.log(enemyPos);
+      console.log(rowClass[i]);
+      let oldDiv = $('#'+enemyPos[0]+"_"+enemyPos[1])
+      let newX = enemyPos[0]
+      let newY = Number(enemyPos[1]) + Number(move)
+      console.log(newX);
+      console.log(newY);
+      $('#'+newX+"_"+newY).append(rowClass[i])
+      console.log(oldDiv);
+      //console.log(newDiv);
+      //newDiv.appendChild(rowClass[i])
+    }
+  }
 
 }
 
 //spawn an enemy
 function enemySpawn(dir){
-  min = Math.ceil(0);
-  max = Math.floor(roomSize);
+  min = Math.ceil(1);
+  max = Math.floor(roomSize-1);
   let pos = Math.floor(Math.random() * (max - min)) + min;
   if(pos % 2 === 0){
     dir += 'A'
