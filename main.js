@@ -103,6 +103,7 @@ function movePlayer(direction){
 function gameStep(){
   //spawn enemies
   if(turnNumber % 5 === 0){
+    foodSpawn()
     enemySpawn('row')
   } else if (turnNumber % 7 === 0) {
     enemySpawn('col')
@@ -130,6 +131,17 @@ function gameStep(){
     }
   }
 
+}
+
+//spawn food
+function foodSpawn() {
+    // Randomly position the food, not on the perimeter
+    let x = Math.floor(Math.random() * (roomSize-2)) + 1
+    let y = Math.floor(Math.random() * (roomSize-2)) + 1
+
+    let tempFood = document.createElement('div')
+    tempFood.className = 'food'
+    $('#' + x + '_' + y).append(tempFood)
 }
 
 //spawn an enemy
