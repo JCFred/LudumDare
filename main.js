@@ -113,10 +113,12 @@ function movePlayer(direction){
   if($('#'+newY+"_"+newX).has('.food').length){
       hunger += 20
       $('#'+newY+"_"+newX).children('.food').remove()
-  }
-  if($('#'+newY+"_"+newX).has('.shrimpRow').length || $('#'+newY+"_"+newX).has('.shrimpCol').length || $('#'+newY+"_"+newX).has('.snailA').length){
+  }else if($('#'+newY+"_"+newX).children().length){
       location.reload()
   }
+  // if($('#'+newY+"_"+newX).has('.shrimpRow').length || $('#'+newY+"_"+newX).has('.shrimpCol').length || $('#'+newY+"_"+newX).has('.snailA').length || $('#'+newY+"_"+newX).has('.squid').length){
+  //     location.reload()
+  // }
 
   //move player to new div
   var player = $('#player')
