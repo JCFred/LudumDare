@@ -118,7 +118,7 @@ function movePlayer(direction){
       $('#'+newY+"_"+newX).children('.food').remove()
   }
 
-  if($('#'+newY+"_"+newX).has('.enemyRow').length || $('#'+newY+"_"+newX).has('.enemyCol').length){
+  if($('#'+newY+"_"+newX).has('.shrimpRow').length || $('#'+newY+"_"+newX).has('.shrimpCol').length){
       location.reload()
   }
 
@@ -138,7 +138,7 @@ function gameStep(){
   }
 
   //move enemies
-  let rowClass = document.getElementsByClassName('enemyRow')
+  let rowClass = document.getElementsByClassName('shrimpRow')
   if(rowClass.length){
     for (var i = 0; i < rowClass.length; i++) {
       let enemy = rowClass[i].parentElement
@@ -155,7 +155,7 @@ function gameStep(){
       }
     }
   }
-  let colClass = document.getElementsByClassName('enemyCol')
+  let colClass = document.getElementsByClassName('shrimpCol')
   if(colClass.length){
     for (var i = 0; i < colClass.length; i++) {
       let enemy = colClass[i].parentElement
@@ -200,22 +200,22 @@ function enemySpawn(dir){
   //tempEnemy.setAttribute('age', 0)
   switch(dir){
     case 'rowA':
-      tempEnemy.className = 'enemyRow'
+      tempEnemy.className = 'shrimpRow'
       tempEnemy.name = 1
       $('#'+pos+"_0").append(tempEnemy)
       break;
     case 'rowB':
-      tempEnemy.className = 'enemyRow'
+      tempEnemy.className = 'shrimpRow'
       tempEnemy.name = -1
       $('#'+pos+"_"+(roomSize-1)).append(tempEnemy)
       break;
     case 'colA':
-      tempEnemy.className = 'enemyCol'
+      tempEnemy.className = 'shrimpCol'
       tempEnemy.name = 1
       $('#0_'+pos).append(tempEnemy)
       break;
     case 'colB':
-      tempEnemy.className = 'enemyCol'
+      tempEnemy.className = 'shrimpCol'
       tempEnemy.name = -1
       $('#'+(roomSize-1)+'_'+pos).append(tempEnemy)
       break;
@@ -250,27 +250,72 @@ function drawWindow(){
   var player = document.createElement('div')
   player.id = 'player'
   $('#6_10').append(player)
-
 }
 
 //player animation
 var playerSprite = "url(./Public/sprites/phyto_up.png) "
 function spritePlayer() {
-  var x = 0 - offset
+  var x = 0 - offsetPlayer
   var playerUp = document.querySelector("#player");
   playerUp.style.background = playerSprite + x + 'px 0px'
 }
 // sprite()
-var offset = 0
+var offsetPlayer = 0
 function animatePlayer(time) {
+  var width = 32
+  var height = 32
+  if (offsetPlayer > 128) {
+    offsetPlayer = 0
+  }
+  setInterval(function() {
+      spritePlayer()
+      offsetPlayer = offsetPlayer + width
+  }, time)
+}
+animatePlayer(166)
+
+//shrimp animation
+var upShrimp = "url(./Public/sprites/shrimp_up.png) ",
+  downShrimp = "url(./Public/sprites/shrimp_down.png) ",
+  leftShrimp = "url(./Public/sprites/shrimp_left.png) ",
+  rightShrimp = "url(./Public/sprites/shrimp_right.png) "
+
+function spriteShrimp() {
+  var x = 0 - offset
+  //left and right shrimps
+  var shrimpR = document.getElementsByClassName("shrimpRow");
+  if(shrimpR.length){
+    for (var i = 0; i < shrimpR.length; i++) {
+      if(shrimpR[i].name === 1){
+        shrimpR[i].style.background = rightShrimp + x + 'px 0px'
+      } else {
+        shrimpR[i].style.background = leftShrimp + x + 'px 0px'
+      }
+    }
+  }
+  //up and down shrimps
+  var shrimpC = document.getElementsByClassName("shrimpCol");
+  if(shrimpC.length){
+    for (var i = 0; i < shrimpC.length; i++) {
+      if(shrimpC[i].name === 1){
+        shrimpC[i].style.background = downShrimp + x + 'px 0px'
+      } else {
+        shrimpC[i].style.background = upShrimp + x + 'px 0px'
+      }
+    }
+  }
+}
+// sprite()
+var offset = 0
+function animateShrimp(time) {
   var width = 32
   var height = 32
   if (offset > 128) {
     offset = 0
   }
   setInterval(function() {
-      spritePlayer()
+      spriteShrimp()
       offset = offset + width
   }, time)
 }
-animatePlayer(166)
+animateShrimp(166)

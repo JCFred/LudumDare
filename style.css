@@ -25,16 +25,14 @@ main{
   width: 36px;
   height:36px;
 }
-.enemyRow, .enemyCol{
-  background-color: red;
-  border-radius: 50%;
+.shrimpRow, .shrimpCol{
+  /*background-color: red;
+  border-radius: 50%;*/
 
   width: 32px;
   height:32px;
 }
-.enemyCol{
-  background-color: green;
-}
+
 .food{
     background-color: yellow;
     border-radius: 50%;
