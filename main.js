@@ -368,7 +368,10 @@ function foodSpawn() {
 
     let tempFood = document.createElement('div')
     tempFood.className = 'food'
-    $('#' + x + '_' + y).append(tempFood)
+    if($('#' + x + '_' + y).children().length)
+        foodSpawn()
+    else
+        $('#' + x + '_' + y).append(tempFood)
 }
 
 //spawn an enemy
