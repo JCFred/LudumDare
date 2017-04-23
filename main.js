@@ -113,6 +113,7 @@ function movePlayer(direction){
   if($('#'+newY+"_"+newX).has('.food').length){
       hunger += 20
       $('#'+newY+"_"+newX).children('.food').remove()
+      poopSpawn('#'+newY+"_"+newX)
   }else if($('#'+newY+"_"+newX).children().length){
       location.reload()
   }
@@ -400,10 +401,19 @@ function foodSpawn() {
 
     let tempFood = document.createElement('div')
     tempFood.className = 'food'
-    if($('#' + x + '_' + y).children().length)
+    if($('#' + x + '_' + y).children().length){
         foodSpawn()
-    else
+    }else{
         $('#' + x + '_' + y).append(tempFood)
+    }
+}
+
+// Spawn poop
+function poopSpawn(location) {
+    // Position the poop where the player left
+    let poop = document.createElement('div')
+    poop.className = 'poop'
+    $(location).append(poop)
 }
 
 //spawn an enemy
