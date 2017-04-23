@@ -294,13 +294,12 @@ function moveEnemies(){
       if(squids[i].name === 0){
         let newY = +oldDiv[0] +1
         let newX = +oldDiv[1] +1
-        console.log("move to: "+newY+","+newX+ " from: "+oldDiv[0]+","+oldDiv[1]);
         // Enemy eats the food and poops
         if($('#'+newY+"_"+newX).has('.food').length){
             $('#'+newY+"_"+newX).children('.food').remove()
             poopSpawn('#'+newY+"_"+newX)
         }
-        $('#'+newY+'_'+newX).append(squids[i])
+        checkMove(newX, newY, squids[i])
       //move down right
       } else if(squids[i].name === 1){
         let newY = +oldDiv[0] +1
@@ -310,7 +309,7 @@ function moveEnemies(){
             $('#'+newY+"_"+newX).children('.food').remove()
             poopSpawn('#'+newY+"_"+newX)
         }
-        $('#'+newY+'_'+newX).append(squids[i])
+        checkMove(newX, newY, squids[i])
       //move up left
       } else if(squids[i].name === 2){
         let newY = +oldDiv[0] -1
@@ -320,7 +319,7 @@ function moveEnemies(){
             $('#'+newY+"_"+newX).children('.food').remove()
             poopSpawn('#'+newY+"_"+newX)
         }
-        $('#'+newY+'_'+newX).append(squids[i])
+        checkMove(newX, newY, squids[i])
       //move up right
       } else if(squids[i].name === 3){
         let newY = +oldDiv[0] -1
@@ -330,7 +329,7 @@ function moveEnemies(){
             $('#'+newY+"_"+newX).children('.food').remove()
             poopSpawn('#'+newY+"_"+newX)
         }
-        $('#'+newY+'_'+newX).append(squids[i])
+        checkMove(newX, newY, squids[i])
       }
     }
   }
@@ -480,6 +479,15 @@ function enemySpawn(dir){
       tempEnemy.name = -1
       $('#'+(roomSize-1)+'_'+pos).append(tempEnemy)
       break;
+  }
+}
+
+//check for edge of room, then move the enemy
+function checkMove(xx, yy, obj){
+  if(xx >= 19 || xx <= 0 || yy >= 19 || yy <= 0){
+    obj.remove()
+  } else {
+    $('#'+yy+'_'+xx).append(obj)
   }
 }
 
