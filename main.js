@@ -279,23 +279,24 @@ function moveEnemies(){
       let oldDiv = getPos(parentDiv.id)
       //move down left
       if(squids[i].name === 0){
-        let newY = oldDiv[0] +1
-        let newX = oldDiv[1] +1
+        let newY = +oldDiv[0] +1
+        let newX = +oldDiv[1] +1
+        console.log("move to: "+newY+","+newX+ " from: "+oldDiv[0]+","+oldDiv[1]);
         $('#'+newY+'_'+newX).append(squids[i])
       //move down right
       } else if(squids[i].name === 1){
-        let newY = oldDiv[0] +1
-        let newX = oldDiv[1] -1
+        let newY = +oldDiv[0] +1
+        let newX = +oldDiv[1] -1
         $('#'+newY+'_'+newX).append(squids[i])
       //move up left
       } else if(squids[i].name === 2){
-        let newY = oldDiv[0] -1
-        let newX = oldDiv[1] -1
+        let newY = +oldDiv[0] -1
+        let newX = +oldDiv[1] -1
         $('#'+newY+'_'+newX).append(squids[i])
       //move up right
       } else if(squids[i].name === 3){
-        let newY = oldDiv[0] -1
-        let newX = oldDiv[1] +1
+        let newY = +oldDiv[0] -1
+        let newX = +oldDiv[1] +1
         $('#'+newY+'_'+newX).append(squids[i])
       }
     }
