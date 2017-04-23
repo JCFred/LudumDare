@@ -51,6 +51,14 @@ main{
     width: 32px;
     height:32px;
 }
+.starfish{
+  width:96px;
+  height:96px;
+  position:absolute;
+
+  background-color: brown;
+  border-radius: 50%;
+}
 #player{
   width: 32px;
   height:32px;
