@@ -184,42 +184,127 @@ function moveEnemies(){
       let parentDiv = snails[i].parentElement
       let oldDiv = getPos(parentDiv.id)
       let facing = snails[i].style.background
-      //snail moves forward
+      //snail moves forward the way it is facing
       if(snails[i].name === 1){
-        //facing left
-        if(facing.substring(28,32) === "left"){
+        if(snails[i].getAttribute('face') === "right"){
+          let newX = Number(oldDiv[1]) +1
+          let newY = Number(oldDiv[0])
+          if(newX >= 19 || newX <= 0 || newY >= 19 || newY <= 0){
+            snails[i].remove()
+          } else {
+            snails[i].name = 0
+            $('#'+newY+'_'+newX).append(snails[i])
+          }
+        } else if(snails[i].getAttribute('face') === "up"){
+          let newX = Number(oldDiv[1])
+          let newY = Number(oldDiv[0]) -1
+          if(newX >= 19 || newX <= 0 || newY >= 19 || newY <= 0){
+            snails[i].remove()
+          } else {
+            snails[i].name = 0
+            $('#'+newY+'_'+newX).append(snails[i])
+          }
+        } else if(snails[i].getAttribute('face') === "left"){
           let newX = Number(oldDiv[1]) -1
           let newY = Number(oldDiv[0])
-          $('#'+newY+'_'+newX).append(snails[i])
-          console.log("moving from: "+oldDiv[0]+","+oldDiv[1]+" to: "+newY+","+newX);
-        //facing down
-      } else if(facing.substring(28,32) === "down"){
+          if(newX >= 19 || newX <= 0 || newY >= 19 || newY <= 0){
+            snails[i].remove()
+          } else {
+            snails[i].name = 0
+            $('#'+newY+'_'+newX).append(snails[i])
+          }
+        } else if(snails[i].getAttribute('face') === "down"){
           let newX = Number(oldDiv[1])
           let newY = Number(oldDiv[0]) +1
-          $('#'+newY+'_'+newX).append(snails[i])
-          console.log("moving from: "+oldDiv[0]+","+oldDiv[1]+" to: "+newY+","+newX);
+          if(newX >= 19 || newX <= 0 || newY >= 19 || newY <= 0){
+            snails[i].remove()
+          } else {
+            snails[i].name = 0
+            $('#'+newY+'_'+newX).append(snails[i])
+          }
         }
-        snails[i].name = 0
-      //snail turns
+    //snail turns
     } else if(snails[i].name === 0){
-        if(facing.substring(28,32) === "left"){
-          snails[i].style.background = "url(./Public/sprites/snail_down.png) 0px 0px"
-        } else if(facing.substring(28,32) === "down"){
-          snails[i].style.background = "url(./Public/sprites/snail_left.png) 0px 0px"
+      //spawned left, moving right
+      if(snails[i].getAttribute('dir') === "left"){
+        if(snails[i].getAttribute('face') === "right"){
+          //face up or down
+          let ranDir = getDir(0)
+          snails[i].setAttribute("face", ranDir)
+        } else {
+          //face right
+          snails[i].setAttribute("face", "right")
         }
+      //spawned up, moving down
+      } else if(snails[i].getAttribute('dir') === "up"){
+        if(snails[i].getAttribute('face') === "down"){
+          //face left or right
+          let ranDir = getDir(1)
+          snails[i].setAttribute("face", ranDir)
+        } else {
+          //face down
+          snails[i].setAttribute("face", "down")
+        }
+      //spawned right, moving left
+      } else if(snails[i].getAttribute('dir') === "right"){
+        if(snails[i].getAttribute('face') === "left"){
+          //face up or down
+          let ranDir = getDir(0)
+          snails[i].setAttribute("face", ranDir)
+        } else {
+          //face left
+          snails[i].setAttribute("face", "left")
+        }
+      //spawn down, moving up
+      }else if(snails[i].getAttribute('dir') === "down"){
+        if(snails[i].getAttribute('face') === "up"){
+          //face left or right
+          let ranDir = getDir(1)
+          snails[i].setAttribute("face", ranDir)
+        } else {
+          //face up
+          snails[i].setAttribute("face", "up")
+        }
+      }
         snails[i].name = 1
       }
     }
   }
 }
+
 //snail spawn
 function snailSpawn(){
-  let x = Math.floor(Math.random() * (12)) + 3
+  let randPos = Math.floor(Math.random() * (17)) + 1
+  let side = Math.floor(Math.random() * (4))
   let tempSnail = document.createElement('div')
   tempSnail.className = 'snailA'
   tempSnail.name = 1
-  tempSnail.style.background = "url(./Public/sprites/snail_left.png) 0px 0px"
-  $('#' + x + '_19').append(tempSnail)
+  switch(side){
+    case 0:
+      tempSnail.setAttribute("dir", 'left')
+      tempSnail.setAttribute("face", 'right')
+      tempSnail.style.background = "url(./Public/sprites/snail_right.png) 0px 0px"
+      $('#' + randPos + '_0').append(tempSnail)
+      break;
+    case 1:
+      tempSnail.setAttribute("dir", 'up')
+      tempSnail.setAttribute("face", 'down')
+      tempSnail.style.background = "url(./Public/sprites/snail_down.png) 0px 0px"
+      $('#0_'+randPos).append(tempSnail)
+      break;
+    case 2:
+      tempSnail.setAttribute("dir", 'right')
+      tempSnail.setAttribute("face", 'left')
+      tempSnail.style.background = "url(./Public/sprites/snail_left.png) 0px 0px"
+      $('#' + randPos + '_19').append(tempSnail)
+      break;
+    case 3:
+      tempSnail.setAttribute("dir", 'down')
+      tempSnail.setAttribute("face", 'up')
+      tempSnail.style.background = "url(./Public/sprites/snail_up.png) 0px 0px"
+      $('#19_'+randPos).append(tempSnail)
+      break;
+  }
 }
 
 //spawn food
@@ -278,6 +363,24 @@ function getPos(id){
       arr.push(id.substring(0, i))
       arr.push(id.substring(i +1, id.length))
       return arr
+    }
+  }
+}
+
+//return either 1 or -1
+function getDir(dir){
+  let temp = Math.floor(Math.random() * (2))
+  if(temp === 0){
+    if(dir === 0){
+      return "up"
+    } else {
+      return "right"
+    }
+  } else {
+    if(dir === 0){
+      return "down"
+    } else {
+      return "left"
     }
   }
 }
@@ -375,3 +478,34 @@ function animateShrimp(time) {
   }, time)
 }
 animateShrimp(125)
+
+
+
+
+
+//Snail animations
+function spriteSnail() {
+  var x = 0 - snailOffset
+  //left and right shrimps
+  let snails = document.getElementsByClassName("snailA");
+  if(snails.length){
+    for (var i = 0; i < snails.length; i++) {
+      let facing = snails[i].getAttribute("face")
+      snails[i].style.background = "url(./Public/sprites/snail_"+facing+".png) "+x+"px 0"
+    }
+  }
+}
+// sprite()
+var snailOffset = 0
+function animateSnail(time) {
+  var width = 32
+  var height = 32
+  if (snailOffset > 128) {
+    snailOffset = 0
+  }
+  setInterval(function() {
+      spriteSnail()
+      snailOffset = snailOffset + width
+  }, time)
+}
+animateSnail(250)
