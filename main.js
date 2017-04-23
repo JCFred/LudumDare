@@ -669,3 +669,29 @@ function animateSquid(time) {
   }, time)
 }
 animateSquid(125)
+
+//detritus animations
+function spritePoop() {
+  let x = 0 - poopOffset
+  //left and right shrimps
+  let poops = document.getElementsByClassName("poop");
+  if(poops.length){
+    for (var i = 0; i < poops.length; i++) {
+      poops[i].style.background = "url(./Public/sprites/detritus.png) "+x+"px 0"
+    }
+  }
+}
+// sprite()
+var poopOffset = 0
+function animateSquid(time) {
+  let width = 32
+  let height = 32
+  if (poopOffset > 160) {
+    poopOffset = 0
+  }
+  setInterval(function() {
+      spritePoop()
+      poopOffset = poopOffset + width
+  }, time)
+}
+animatePoop(166)
