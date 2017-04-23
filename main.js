@@ -114,6 +114,9 @@ function movePlayer(direction){
       hunger += 20
       $('#'+newY+"_"+newX).children('.food').remove()
       poopSpawn('#'+newY+"_"+newX)
+  }else if($('#'+newY+"_"+newX).has('.poop').length){
+      hunger -= 20
+      $('#'+newY+"_"+newX).children('.poop').remove()
   }else if($('#'+newY+"_"+newX).children().length){
       location.reload()
   }
