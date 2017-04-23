@@ -127,16 +127,15 @@ function movePlayer(direction){
 function gameStep(){
   //run every 3 steps
   if(turnNumber % 3 === 0){
-
+    squidSpawn()
   //run every 5 steps
   } else if(turnNumber % 5 === 0){
-    snailSpawn()
     foodSpawn()
     enemySpawn('row')
+    enemySpawn('col')
   //run every 7 steps
   } else if (turnNumber % 7 === 0) {
-    enemySpawn('col')
-    squidSpawn()
+    snailSpawn()
   }
   moveEnemies()
 }
@@ -278,18 +277,26 @@ function moveEnemies(){
     for (var i = 0; i < squids.length; i++) {
       let parentDiv = squids[i].parentElement
       let oldDiv = getPos(parentDiv.id)
+      //move down left
       if(squids[i].name === 0){
         let newY = oldDiv[0] +1
-        let NewX = oldDiv[1] +1
+        let newX = oldDiv[1] +1
+        $('#'+newY+'_'+newX).append(squids[i])
+      //move down right
       } else if(squids[i].name === 1){
         let newY = oldDiv[0] +1
-        let NewX = oldDiv[1] -1
+        let newX = oldDiv[1] -1
+        $('#'+newY+'_'+newX).append(squids[i])
+      //move up left
       } else if(squids[i].name === 2){
         let newY = oldDiv[0] -1
-        let NewX = oldDiv[1] -1
+        let newX = oldDiv[1] -1
+        $('#'+newY+'_'+newX).append(squids[i])
+      //move up right
       } else if(squids[i].name === 3){
         let newY = oldDiv[0] -1
-        let NewX = oldDiv[1] +1
+        let newX = oldDiv[1] +1
+        $('#'+newY+'_'+newX).append(squids[i])
       }
     }
   }
@@ -301,7 +308,7 @@ function squidSpawn(){
   let tempSquid = document.createElement('div')
   tempSquid.className = 'squid'
   tempSquid.style.background = "url(./Public/sprites/squid.png) 0px 0px"
-  let randPos = Math.floor(Math.random() * (roomSize-2)) + 1
+  let randPos = Math.floor(Math.random() * (roomSize/2)) + 1
   let spot = Math.floor(Math.random() * (8))
   switch(spot){
     case 0:
