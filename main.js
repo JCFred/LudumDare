@@ -109,7 +109,7 @@ function movePlayer(direction){
   }
 
 
-  // Remove food div if player moves into food, reload page if player moves into enemy
+  // Remove food div if player moves into food, create poop div, reload page if player moves into enemy
   if($('#'+newY+"_"+newX).has('.food').length){
       hunger += 20
       $('#'+newY+"_"+newX).children('.food').remove()
@@ -120,9 +120,6 @@ function movePlayer(direction){
   }else if($('#'+newY+"_"+newX).children().length){
       location.reload()
   }
-  // if($('#'+newY+"_"+newX).has('.shrimpRow').length || $('#'+newY+"_"+newX).has('.shrimpCol').length || $('#'+newY+"_"+newX).has('.snailA').length || $('#'+newY+"_"+newX).has('.squid').length){
-  //     location.reload()
-  // }
 
   //move player to new div
   var player = $('#player')
@@ -164,6 +161,11 @@ function moveEnemies(){
       } else {
         $('#'+newX+"_"+newY).append(rowClass[i])
       }
+      // Enemy eats the food and poops
+      if($('#'+newY+"_"+newX).has('.food').length){
+          $('#'+newY+"_"+newX).children('.food').remove()
+          poopSpawn('#'+newY+"_"+newX)
+      }
     }
   }
   //move column shrimps
@@ -180,6 +182,11 @@ function moveEnemies(){
         colClass[i].remove()
       } else {
         $('#'+newX+"_"+newY).append(colClass[i])
+      }
+      // Enemy eats the food and poops
+      if($('#'+newY+"_"+newX).has('.food').length){
+          $('#'+newY+"_"+newX).children('.food').remove()
+          poopSpawn('#'+newY+"_"+newX)
       }
     }
   }
@@ -288,21 +295,41 @@ function moveEnemies(){
         let newY = +oldDiv[0] +1
         let newX = +oldDiv[1] +1
         console.log("move to: "+newY+","+newX+ " from: "+oldDiv[0]+","+oldDiv[1]);
+        // Enemy eats the food and poops
+        if($('#'+newY+"_"+newX).has('.food').length){
+            $('#'+newY+"_"+newX).children('.food').remove()
+            poopSpawn('#'+newY+"_"+newX)
+        }
         $('#'+newY+'_'+newX).append(squids[i])
       //move down right
       } else if(squids[i].name === 1){
         let newY = +oldDiv[0] +1
         let newX = +oldDiv[1] -1
+        // Enemy eats the food and poops
+        if($('#'+newY+"_"+newX).has('.food').length){
+            $('#'+newY+"_"+newX).children('.food').remove()
+            poopSpawn('#'+newY+"_"+newX)
+        }
         $('#'+newY+'_'+newX).append(squids[i])
       //move up left
       } else if(squids[i].name === 2){
         let newY = +oldDiv[0] -1
         let newX = +oldDiv[1] -1
+        // Enemy eats the food and poops
+        if($('#'+newY+"_"+newX).has('.food').length){
+            $('#'+newY+"_"+newX).children('.food').remove()
+            poopSpawn('#'+newY+"_"+newX)
+        }
         $('#'+newY+'_'+newX).append(squids[i])
       //move up right
       } else if(squids[i].name === 3){
         let newY = +oldDiv[0] -1
         let newX = +oldDiv[1] +1
+        // Enemy eats the food and poops
+        if($('#'+newY+"_"+newX).has('.food').length){
+            $('#'+newY+"_"+newX).children('.food').remove()
+            poopSpawn('#'+newY+"_"+newX)
+        }
         $('#'+newY+'_'+newX).append(squids[i])
       }
     }
