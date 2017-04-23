@@ -35,7 +35,10 @@ main{
   border-radius: 50%;
   background-color: grey;
 }
-
+.squid{
+  width: 32px;
+  height: 32px;
+}
 .food{
     width: 32px;
     height:32px;
