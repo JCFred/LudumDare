@@ -136,6 +136,7 @@ function gameStep(){
   //run every 7 steps
   } else if (turnNumber % 7 === 0) {
     enemySpawn('col')
+    squidSpawn()
   }
   moveEnemies()
 }
@@ -269,6 +270,58 @@ function moveEnemies(){
         snails[i].name = 1
       }
     }
+  }
+}
+
+
+//squid spawn
+function squidSpawn(){
+  let tempSquid = = document.createElement('div')
+  tempSquid.className = 'squid'
+  tempSquid.style.background = "url(./Public/sprites/squid.png) 0px 0px"
+  let randPos = Math.floor(Math.random() * (roomSize-2)) + 1
+  let spot = Math.floor(Math.random() * (8))
+  switch(spot){
+    case 0:
+    //left on the top
+      tempSquid.name = 0
+      $('#' + randPos + '_0').append(tempSquid)
+      break;
+    case 1:
+    //top on the left
+      tempSquid.name = 0
+      $('#0_' + randPos).append(tempSquid)
+      break;
+    case 2:
+    //top on the right
+      tempSquid.name = 1
+      $('#0_' + ((roomSize/2)+randPos)).append(tempSquid)
+      break;
+    case 3:
+    //right on the top
+      tempSquid.name = 1
+      $('#' + randPos + '_19').append(tempSquid)
+      break;
+    case 4:
+    //right on the bottom
+      tempSquid.name = 2
+      $('#' + ((roomSize/2)+randPos) + '_19').append(tempSquid)
+      break;
+    case 5:
+    //bottom on the right
+      tempSquid.name = 2
+      $('#19_' + ((roomSize/2)+randPos)).append(tempSquid)
+      break;
+    case 6:
+    //bottom on the left
+      tempSquid.name = 3
+      $('#19_' + randPos).append(tempSquid)
+      break;
+    case 7:
+    //left on the bottom
+      tempSquid.name = 3
+      $('#'+((roomSize/2)+randPos)+"_0").append(tempSquid)
+      break;
   }
 }
 
@@ -478,9 +531,6 @@ function animateShrimp(time) {
   }, time)
 }
 animateShrimp(125)
-
-
-
 
 
 //Snail animations
