@@ -114,7 +114,7 @@ function movePlayer(direction){
       hunger += 20
       $('#'+newY+"_"+newX).children('.food').remove()
   }
-  if($('#'+newY+"_"+newX).has('.shrimpRow').length || $('#'+newY+"_"+newX).has('.shrimpCol').length){
+  if($('#'+newY+"_"+newX).has('.shrimpRow').length || $('#'+newY+"_"+newX).has('.shrimpCol').length || $('#'+newY+"_"+newX).has('.snailA').length){
       location.reload()
   }
 
