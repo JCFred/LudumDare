@@ -637,11 +637,11 @@ animateSnail(250)
 
 //Squid animations
 function spriteSquid() {
-  let x = 0 - squisOffset
+  let x = 0 - squidOffset
   //left and right shrimps
   let squids = document.getElementsByClassName("squid");
-  if(snails.length){
-    for (var i = 0; i < snails.length; i++) {
+  if(squids.length){
+    for (var i = 0; i < squids.length; i++) {
       let facing = squids[i].getAttribute("face")
       squids[i].style.background = "url(./Public/sprites/squid.png) "+x+"px 0"
     }
@@ -652,7 +652,7 @@ var squidOffset = 0
 function animateSquid(time) {
   let width = 32
   let height = 32
-  if (squidOffset > 128) {
+  if (squidOffset > 160) {
     squidOffset = 0
   }
   setInterval(function() {
@@ -660,4 +660,4 @@ function animateSquid(time) {
       squidOffset = squidOffset + width
   }, time)
 }
-animateSquid(250)
+animateSquid(125)
