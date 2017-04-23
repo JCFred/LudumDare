@@ -54,8 +54,6 @@ main{
   height:96px;
   position:absolute;
 
-  background-color: brown;
-  border-radius: 50%;
 }
 #player{
   width: 32px;

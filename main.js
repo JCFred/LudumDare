@@ -6,7 +6,7 @@ $(document).ready(function() {
     console.log(event.target.id);
   })
 
-
+  spawnStar()
 })
 
 //set game variables
@@ -20,6 +20,17 @@ var timestep = 1000/5, //this sets the speed to 30 fps
     delta = 0,
     lastFrameTimeMs = 0, // The timestamp in milliseconds of the last time the main loop was run.
     maxFPS = 5;
+
+//TEST for startfishBoss
+function spawnStar(){
+  let tempStar = document.createElement('div')
+  tempStar.className = 'starfish'
+  tempStar.setAttribute("dir", "down")
+  tempStar.style.background = "url(./Public/sprites/starfish.png) 0px 0px"
+  $('#2_2').append(tempStar)
+}
+
+
 
 requestAnimationFrame(mainLoop);
 //main game loop and engine
@@ -141,6 +152,7 @@ function gameStep(){
     snailSpawn()
   }
   moveEnemies()
+  moveStar()
 }
 
 //run each enemy step
@@ -168,6 +180,7 @@ function moveEnemies(){
       }
     }
   }
+
   //move column shrimps
   let colClass = document.getElementsByClassName('shrimpCol')
   if(colClass.length){
@@ -190,6 +203,7 @@ function moveEnemies(){
       }
     }
   }
+
   //move snail
   let snails = document.getElementsByClassName('snailA')
   if(snails.length){
@@ -335,6 +349,17 @@ function moveEnemies(){
   }
 }
 
+//move the Starfish Boss
+function moveStar(){
+  let star = document.getElementsByClassName('starfish')
+  if(star.length){
+    if(star.getAttribute("dir") === "down"){
+
+    }else if (){
+      
+    }
+  }
+}
 
 //squid spawn
 function squidSpawn(){
@@ -646,11 +671,9 @@ animateSnail(250)
 //Squid animations
 function spriteSquid() {
   let x = 0 - squidOffset
-  //left and right shrimps
   let squids = document.getElementsByClassName("squid");
   if(squids.length){
     for (var i = 0; i < squids.length; i++) {
-      let facing = squids[i].getAttribute("face")
       squids[i].style.background = "url(./Public/sprites/squid.png) "+x+"px 0"
     }
   }
@@ -670,10 +693,9 @@ function animateSquid(time) {
 }
 animateSquid(125)
 
-//detritus animations
+//poop animations
 function spritePoop() {
   let x = 0 - poopOffset
-  //left and right shrimps
   let poops = document.getElementsByClassName("poop");
   if(poops.length){
     for (var i = 0; i < poops.length; i++) {
@@ -683,7 +705,7 @@ function spritePoop() {
 }
 // sprite()
 var poopOffset = 0
-function animateSquid(time) {
+function animatePoop(time) {
   let width = 32
   let height = 32
   if (poopOffset > 160) {
@@ -694,4 +716,27 @@ function animateSquid(time) {
       poopOffset = poopOffset + width
   }, time)
 }
-animatePoop(166)
+animateStar(166)
+
+//starfish animations
+function spriteStar() {
+  let x = 0 - starOffset
+  let star = document.getElementsByClassName("starfish");
+  if(star.length){
+    star[0].style.background = "url(./Public/sprites/starfish.png) "+x+"px 0"
+  }
+}
+// sprite()
+var starOffset = 0
+function animateStar(time) {
+  let width = 96
+  let height = 96
+  if (starOffset > 385) {
+    starOffset = 0
+  }
+  setInterval(function() {
+      spriteStar()
+      starOffset = starOffset + width
+  }, time)
+}
+animateStar(1000)
