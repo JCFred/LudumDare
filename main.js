@@ -742,7 +742,7 @@ function animatePoop(time) {
       poopOffset = poopOffset + width
   }, time)
 }
-animateStar(166)
+animatePoop(166)
 
 //starfish animations
 function spriteStar() {
