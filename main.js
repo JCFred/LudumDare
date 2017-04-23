@@ -276,7 +276,7 @@ function moveEnemies(){
 
 //squid spawn
 function squidSpawn(){
-  let tempSquid = = document.createElement('div')
+  let tempSquid = document.createElement('div')
   tempSquid.className = 'squid'
   tempSquid.style.background = "url(./Public/sprites/squid.png) 0px 0px"
   let randPos = Math.floor(Math.random() * (roomSize-2)) + 1
