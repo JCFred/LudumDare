@@ -271,6 +271,28 @@ function moveEnemies(){
       }
     }
   }
+
+  //move squids
+  let squids = document.getElementsByClassName('squid')
+  if(squids.length){
+    for (var i = 0; i < squids.length; i++) {
+      let parentDiv = squids[i].parentElement
+      let oldDiv = getPos(parentDiv.id)
+      if(squids[i].name === 0){
+        let newY = oldDiv[0] +1
+        let NewX = oldDiv[1] +1
+      } else if(squids[i].name === 1){
+        let newY = oldDiv[0] +1
+        let NewX = oldDiv[1] -1
+      } else if(squids[i].name === 2){
+        let newY = oldDiv[0] -1
+        let NewX = oldDiv[1] -1
+      } else if(squids[i].name === 3){
+        let newY = oldDiv[0] -1
+        let NewX = oldDiv[1] +1
+      }
+    }
+  }
 }
 
 
