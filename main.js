@@ -353,10 +353,36 @@ function moveEnemies(){
 function moveStar(){
   let star = document.getElementsByClassName('starfish')
   if(star.length){
-    if(star.getAttribute("dir") === "down"){
-
-    }else if (){
-      
+    let parentDiv = star[0].parentElement.id
+    let oldDiv = getPos(parentDiv)
+    if(star[0].getAttribute("dir") === "down"){
+      let newY = +oldDiv[0] +1
+      let newX = +oldDiv[1]
+      $('#'+newY+"_"+newX).append(star[0])
+      if(newY+1 >= roomSize -2){
+        star[0].setAttribute("dir", "right")
+      }
+    }else if(star[0].getAttribute("dir") === "left"){
+      let newY = +oldDiv[0]
+      let newX = +oldDiv[1] -1
+      $('#'+newY+"_"+newX).append(star[0])
+      if(newX-1 <= 1){
+        star[0].setAttribute("dir", "down")
+      }
+    }else if(star[0].getAttribute("dir") === "up"){
+      let newY = +oldDiv[0] -1
+      let newX = +oldDiv[1]
+      $('#'+newY+"_"+newX).append(star[0])
+      if(newY-1 <= 1){
+        star[0].setAttribute("dir", "left")
+      }
+    }else if(star[0].getAttribute("dir") === "right"){
+      let newY = +oldDiv[0]
+      let newX = +oldDiv[1] +1
+      $('#'+newY+"_"+newX).append(star[0])
+      if(newX+1 >= roomSize -2){
+        star[0].setAttribute("dir", "up")
+      }
     }
   }
 }
