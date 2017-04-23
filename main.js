@@ -594,10 +594,10 @@ function spriteSnail() {
   }
 }
 // sprite()
-var snailOffset = 0
+let snailOffset = 0
 function animateSnail(time) {
-  var width = 32
-  var height = 32
+  let width = 32
+  let height = 32
   if (snailOffset > 128) {
     snailOffset = 0
   }
@@ -607,3 +607,30 @@ function animateSnail(time) {
   }, time)
 }
 animateSnail(250)
+
+//Squid animations
+function spriteSquid() {
+  let x = 0 - squisOffset
+  //left and right shrimps
+  let squids = document.getElementsByClassName("squid");
+  if(snails.length){
+    for (var i = 0; i < snails.length; i++) {
+      let facing = squids[i].getAttribute("face")
+      squids[i].style.background = "url(./Public/sprites/squid.png) "+x+"px 0"
+    }
+  }
+}
+// sprite()
+var squidOffset = 0
+function animateSquid(time) {
+  let width = 32
+  let height = 32
+  if (squidOffset > 128) {
+    squidOffset = 0
+  }
+  setInterval(function() {
+      spriteSquid()
+      squidOffset = squidOffset + width
+  }, time)
+}
+animateSquid(250)
