@@ -278,7 +278,8 @@ animatePlayer(166)
 var upShrimp = "url(./Public/sprites/shrimp_up.png) ",
   downShrimp = "url(./Public/sprites/shrimp_down.png) ",
   leftShrimp = "url(./Public/sprites/shrimp_left.png) ",
-  rightShrimp = "url(./Public/sprites/shrimp_right.png) "
+  rightShrimp = "url(./Public/sprites/shrimp_right.png) ",
+  algaePic = "url(./Public/sprites/algae.png) "
 
 function spriteShrimp() {
   var x = 0 - offset
@@ -304,6 +305,13 @@ function spriteShrimp() {
       }
     }
   }
+  //animation for the algae
+  var foodDivs = document.getElementsByClassName('food')
+  if(foodDivs.length){
+    for (var i = 0; i < foodDivs.length; i++) {
+      foodDivs[i].style.background = algaePic + x + 'px 0px'
+    }
+  }
 }
 // sprite()
 var offset = 0
@@ -318,4 +326,4 @@ function animateShrimp(time) {
       offset = offset + width
   }, time)
 }
-animateShrimp(166)
+animateShrimp(125)

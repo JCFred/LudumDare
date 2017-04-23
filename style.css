@@ -26,17 +26,11 @@ main{
   height:36px;
 }
 .shrimpRow, .shrimpCol{
-  /*background-color: red;
-  border-radius: 50%;*/
-
   width: 32px;
   height:32px;
 }
 
 .food{
-    background-color: yellow;
-    border-radius: 50%;
-
     width: 32px;
     height:32px;
 }
