@@ -22,12 +22,19 @@ main{
   justify-content: center;
   align-items: center;
 
-  width: 36px;
+  width:36px;
   height:36px;
 }
 .shrimpRow, .shrimpCol{
-  width: 32px;
+  width:32px;
   height:32px;
+}
+.snailA{
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+  background-color: grey;
 }
 
 .food{
@@ -35,9 +42,6 @@ main{
     height:32px;
 }
 #player{
-  /*background-color: blue;
-  border-radius: 50%;*/
-
   width: 32px;
   height:32px;
 }

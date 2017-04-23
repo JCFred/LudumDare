@@ -39,25 +39,25 @@ function mainLoop(timestamp) {
       document.onkeydown = function() {
         switch (event.keyCode) {
         case 38:
-            //console.log("Up key is pressed");
+            //up key pressed, turn player sprite and move
             playerSprite = "url(./Public/Sprites/phyto_up.png)"
             decrementHunger(1)
             movePlayer('up')
             break;
         case 40:
-            //console.log("Down key is pressed");
+            //down key pressed, turn player sprite and move
             playerSprite = "url(./Public/Sprites/phyto_down.png)"
             decrementHunger(1)
             movePlayer('down')
             break;
         case 37:
-            //console.log("left key is pressed");
+            //left key pressed, turn player sprite and move
             playerSprite = "url(./Public/Sprites/phyto_left.png)"
             decrementHunger(1)
             movePlayer('left')
             break;
         case 39:
-            //console.log("Right key is pressed");
+            //right key pressed, turn player sprite and move
             playerSprite = "url(./Public/Sprites/phyto_right.png) "
             decrementHunger(1)
             movePlayer('right')
@@ -87,11 +87,10 @@ function movePlayer(direction){
   //move enemies
   gameStep()
 
-  //get player's new div
+  //get player's new div and position
   let currentDiv = $('#player').parent()
   let divId = currentDiv[0].id
   let divPos = getPos(divId)
-
   let newY = Number(divPos[0])
   let newX = Number(divPos[1])
   switch(direction){
@@ -109,35 +108,41 @@ function movePlayer(direction){
       break;
   }
 
-  //move player to new div
-  var player = $('#player')
 
   // Remove food div if player moves into food, reload page if player moves into enemy
   if($('#'+newY+"_"+newX).has('.food').length){
       hunger += 20
       $('#'+newY+"_"+newX).children('.food').remove()
   }
-
   if($('#'+newY+"_"+newX).has('.shrimpRow').length || $('#'+newY+"_"+newX).has('.shrimpCol').length){
       location.reload()
   }
 
+  //move player to new div
+  var player = $('#player')
   $('#'+newY+"_"+newX).append(player)
-  // console.log(player);
-  // console.log(newY+"_"+newX);
 }
 
 //run a game step
 function gameStep(){
-  //spawn enemies
-  if(turnNumber % 5 === 0){
+  //run every 3 steps
+  if(turnNumber % 3 === 0){
+
+  //run every 5 steps
+  } else if(turnNumber % 5 === 0){
+    snailSpawn()
     foodSpawn()
     enemySpawn('row')
+  //run every 7 steps
   } else if (turnNumber % 7 === 0) {
     enemySpawn('col')
   }
+  moveEnemies()
+}
 
-  //move enemies
+//run each enemy step
+function moveEnemies(){
+  //move row shrimps
   let rowClass = document.getElementsByClassName('shrimpRow')
   if(rowClass.length){
     for (var i = 0; i < rowClass.length; i++) {
@@ -155,6 +160,7 @@ function gameStep(){
       }
     }
   }
+  //move column shrimps
   let colClass = document.getElementsByClassName('shrimpCol')
   if(colClass.length){
     for (var i = 0; i < colClass.length; i++) {
@@ -171,7 +177,49 @@ function gameStep(){
       }
     }
   }
-
+  //move snail
+  let snails = document.getElementsByClassName('snailA')
+  if(snails.length){
+    for (var i = 0; i < snails.length; i++) {
+      let parentDiv = snails[i].parentElement
+      let oldDiv = getPos(parentDiv.id)
+      let facing = snails[i].style.background
+      //snail moves forward
+      if(snails[i].name === 1){
+        //facing left
+        if(facing.substring(28,32) === "left"){
+          let newX = Number(oldDiv[1]) -1
+          let newY = Number(oldDiv[0])
+          $('#'+newY+'_'+newX).append(snails[i])
+          console.log("moving from: "+oldDiv[0]+","+oldDiv[1]+" to: "+newY+","+newX);
+        //facing down
+      } else if(facing.substring(28,32) === "down"){
+          let newX = Number(oldDiv[1])
+          let newY = Number(oldDiv[0]) +1
+          $('#'+newY+'_'+newX).append(snails[i])
+          console.log("moving from: "+oldDiv[0]+","+oldDiv[1]+" to: "+newY+","+newX);
+        }
+        snails[i].name = 0
+      //snail turns
+    } else if(snails[i].name === 0){
+        if(facing.substring(28,32) === "left"){
+          snails[i].style.background = "url(./Public/sprites/snail_down.png) 0px 0px"
+        } else if(facing.substring(28,32) === "down"){
+          snails[i].style.background = "url(./Public/sprites/snail_left.png) 0px 0px"
+        }
+        snails[i].name = 1
+      }
+    }
+  }
+}
+//snail spawn
+function snailSpawn(){
+  let x = Math.floor(Math.random() * (12)) + 3
+  let tempSnail = document.createElement('div')
+  tempSnail.className = 'snailA'
+  tempSnail.name = 1
+  tempSnail.style.background = "url(./Public/sprites/snail_left.png) 0px 0px"
+  $('#' + x + '_19').append(tempSnail)
 }
 
 //spawn food
