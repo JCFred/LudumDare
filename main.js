@@ -15,7 +15,9 @@ $(document).ready(function() {
 var roomSize = 20,
   gridSize = 35,
   turnNumber = 0,
-  hunger = 200;
+  hunger = 200,
+  time
+
 
 //game step engine variables
 var timestep = 1000/5, //this sets the speed to 30 fps
@@ -55,6 +57,7 @@ requestAnimationFrame(mainLoop);
 function mainLoop(timestamp) {
   // Throttle the frame rate.
   if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {
+
       requestAnimationFrame(mainLoop);
       return;
   }
