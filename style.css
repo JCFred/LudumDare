@@ -28,26 +28,33 @@ main{
 .shrimpRow, .shrimpCol{
   width:32px;
   height:32px;
+  position: absolute;
+  z-index: 2;
 }
 .snailA{
   width: 32px;
   height: 32px;
-
-  border-radius: 50%;
-  background-color: grey;
+  position: absolute;
+  z-index: 2;
 }
+
 .poop{
   width: 32px;
   height: 32px;
-
+  position: absolute;
+  z-index: 1;
 }
 .squid{
   width: 32px;
   height: 32px;
+  position: absolute;
+  z-index: 2;
 }
 .food{
-    width: 32px;
-    height:32px;
+  width: 32px;
+  height:32px;
+  position: absolute;
+  z-index: 1;
 }
 .pieces{
     width: 32px;
@@ -57,20 +64,27 @@ main{
 .sunSpot{
   width: 32px;
   height:32px;
+  position: absolute;
+  z-index: 5;
 }
 .starfish{
   width:96px;
   height:96px;
   position:absolute;
+  position: absolute;
+  z-index: 3;
 }
 .bigfish{
   width:96px;
   height:96px;
   position:absolute;
+  z-index: 2;
 }
 #player{
   width: 32px;
   height:32px;
+  position: absolute;
+  z-index: 4;
 }
 #gameWindow{
   border:1px solid black;
@@ -79,4 +93,5 @@ main{
   flex-wrap:wrap;
   width: 720px;
   height:720px;
+  z-index: 0;
 }
