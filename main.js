@@ -865,7 +865,7 @@ var bigFishOffset = 0
 function animateBigFish(time) {
   let width = 96
   let height = 96
-  if (bigFishOffset > 768) {
+  if (bigFishOffset > 672) {
     bigFishOffset = 0
   }
   setInterval(function() {
