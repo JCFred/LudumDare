@@ -7,6 +7,7 @@ $(document).ready(function() {
   })
 
   spawnStar()
+  spawnFish()
 })
 
 //set game variables
@@ -21,16 +22,23 @@ var timestep = 1000/5, //this sets the speed to 30 fps
     lastFrameTimeMs = 0, // The timestamp in milliseconds of the last time the main loop was run.
     maxFPS = 5;
 
-//TEST for startfishBoss
+//TEST for startStarBoss
 function spawnStar(){
   let tempStar = document.createElement('div')
   tempStar.className = 'starfish'
   tempStar.setAttribute("dir", "down")
   tempStar.style.background = "url(./Public/sprites/starfish.png) 0px 0px"
-  $('#2_2').append(tempStar)
+  $('#3_3').append(tempStar)
 }
 
-
+//TEST for startFishBoss
+function spawnFish(){
+  let tempFish = document.createElement('div')
+  tempFish.className = 'bigfish'
+  tempFish.setAttribute("dir", "right")
+  tempFish.style.background = "url(./Public/sprites/fish_right.png) 0px 0px"
+  $('#6_6').append(tempFish)
+}
 
 requestAnimationFrame(mainLoop);
 //main game loop and engine
@@ -153,6 +161,7 @@ function gameStep(){
   }
   moveEnemies()
   moveStar()
+  moveBigFish()
 }
 
 //run each enemy step
@@ -359,29 +368,67 @@ function moveStar(){
       let newY = +oldDiv[0] +1
       let newX = +oldDiv[1]
       $('#'+newY+"_"+newX).append(star[0])
-      if(newY+1 >= roomSize -2){
+      if(newY+1 >= roomSize -3){
         star[0].setAttribute("dir", "right")
       }
     }else if(star[0].getAttribute("dir") === "left"){
       let newY = +oldDiv[0]
       let newX = +oldDiv[1] -1
       $('#'+newY+"_"+newX).append(star[0])
-      if(newX-1 <= 1){
+      if(newX-1 <= 2){
         star[0].setAttribute("dir", "down")
       }
     }else if(star[0].getAttribute("dir") === "up"){
       let newY = +oldDiv[0] -1
       let newX = +oldDiv[1]
       $('#'+newY+"_"+newX).append(star[0])
-      if(newY-1 <= 1){
+      if(newY-1 <= 2){
         star[0].setAttribute("dir", "left")
       }
     }else if(star[0].getAttribute("dir") === "right"){
       let newY = +oldDiv[0]
       let newX = +oldDiv[1] +1
       $('#'+newY+"_"+newX).append(star[0])
-      if(newX+1 >= roomSize -2){
+      if(newX+1 >= roomSize -3){
         star[0].setAttribute("dir", "up")
+      }
+    }
+  }
+}
+
+//move the Big Fish
+function moveBigFish(){
+  let bigFish = document.getElementsByClassName('bigfish')
+  if(bigFish.length){
+    let parentDiv = bigFish[0].parentElement.id
+    let oldDiv = getPos(parentDiv)
+    if(bigFish[0].getAttribute("dir") === "down"){
+      let newY = +oldDiv[0] +1
+      let newX = +oldDiv[1]
+      $('#'+newY+"_"+newX).append(bigFish[0])
+      if(newY+1 >= roomSize -7){
+        bigFish[0].setAttribute("dir", "left")
+      }
+    }else if(bigFish[0].getAttribute("dir") === "left"){
+      let newY = +oldDiv[0]
+      let newX = +oldDiv[1] -1
+      $('#'+newY+"_"+newX).append(bigFish[0])
+      if(newX-1 <= 6){
+        bigFish[0].setAttribute("dir", "up")
+      }
+    }else if(bigFish[0].getAttribute("dir") === "up"){
+      let newY = +oldDiv[0] -1
+      let newX = +oldDiv[1]
+      $('#'+newY+"_"+newX).append(bigFish[0])
+      if(newY-1 <= 6){
+        bigFish[0].setAttribute("dir", "right")
+      }
+    }else if(bigFish[0].getAttribute("dir") === "right"){
+      let newY = +oldDiv[0]
+      let newX = +oldDiv[1] +1
+      $('#'+newY+"_"+newX).append(bigFish[0])
+      if(newX+1 >= roomSize -7){
+        bigFish[0].setAttribute("dir", "down")
       }
     }
   }
@@ -651,7 +698,6 @@ function spriteShrimp() {
     }
   }
 }
-// sprite()
 var offset = 0
 function animateShrimp(time) {
   var width = 32
@@ -679,7 +725,6 @@ function spriteSnail() {
     }
   }
 }
-// sprite()
 let snailOffset = 0
 function animateSnail(time) {
   let width = 32
@@ -704,7 +749,6 @@ function spriteSquid() {
     }
   }
 }
-// sprite()
 var squidOffset = 0
 function animateSquid(time) {
   let width = 32
@@ -729,7 +773,6 @@ function spritePoop() {
     }
   }
 }
-// sprite()
 var poopOffset = 0
 function animatePoop(time) {
   let width = 32
@@ -752,7 +795,6 @@ function spriteStar() {
     star[0].style.background = "url(./Public/sprites/starfish.png) "+x+"px 0"
   }
 }
-// sprite()
 var starOffset = 0
 function animateStar(time) {
   let width = 96
@@ -766,3 +808,26 @@ function animateStar(time) {
   }, time)
 }
 animateStar(1000)
+
+//bigfish animations
+function spriteBigFish() {
+  let x = 0 - bigFishOffset
+  let bigFish = document.getElementsByClassName("bigfish");
+  if(bigFish.length){
+    let facing = bigFish[0].getAttribute("dir")
+    bigFish[0].style.background = "url(./Public/sprites/fish_"+facing+".png) "+x+"px 0"
+  }
+}
+var bigFishOffset = 0
+function animateBigFish(time) {
+  let width = 96
+  let height = 96
+  if (bigFishOffset > 768) {
+    bigFishOffset = 0
+  }
+  setInterval(function() {
+      spriteBigFish()
+      bigFishOffset = bigFishOffset + width
+  }, time)
+}
+animateBigFish(200)
