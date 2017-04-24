@@ -49,6 +49,11 @@ main{
     width: 32px;
     height:32px;
 }
+.pieces{
+    width: 32px;
+    height:32px;
+    background-color: yellow;
+}
 .sunSpot{
   width: 32px;
   height:32px;

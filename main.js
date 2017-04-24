@@ -168,6 +168,13 @@ function movePlayer(direction){
   $('#'+newY+"_"+newX).append(player)
 }
 
+function checkEnemies(newX, newY){
+    if($('#'+newY+"_"+newX).has('div').length){
+        $('#'+newY+"_"+newX).children('div').remove()
+        piecesSpawn('#'+newY+"_"+newX)
+    }
+}
+
 //run a game step
 function gameStep(){
   //run every 3 steps
@@ -213,6 +220,8 @@ function moveEnemies(){
           $('#'+newY+"_"+newX).children('.food').remove()
           poopSpawn('#'+newY+"_"+newX)
       }
+      // If enemy hits another enemy, remove both and append pieces
+      checkEnemies(newX, newY)
     }
   }
 
@@ -584,6 +593,14 @@ function poopSpawn(location) {
     let poop = document.createElement('div')
     poop.className = 'poop'
     $(location).append(poop)
+}
+
+// Spawn pieces
+function piecesSpawn(location) {
+    // Position the poop where the player left
+    let pieces = document.createElement('div')
+    pieces.className = 'pieces'
+    $(location).append(pieces)
 }
 
 //spawn an enemy
