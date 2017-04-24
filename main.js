@@ -86,6 +86,9 @@ function mainLoop(timestamp) {
       delta -= timestep;
   }
 
+  // Check hunger
+  checkHunger()
+
   // Reduce hunger
   decrementHunger(1)
 
@@ -95,6 +98,11 @@ function mainLoop(timestamp) {
 function decrementHunger(amount) {
     hunger -= amount
     $('#hunger').css('width', hunger + 'px')
+}
+
+function checkHunger(){
+    if(hunger <= 0)
+        location.reload()
 }
 
 //move player and run a single gaem step
