@@ -139,6 +139,11 @@ function movePlayer(direction){
   // Remove food div if player moves into food, create poop div, reload page if player moves into enemy
   if($('#'+newY+"_"+newX).has('.food').length){
       hunger += 20
+
+      // Make sure hunger isn't over 200
+      if(hunger > 200)
+        hunger = 200
+
       $('#'+newY+"_"+newX).children('.food').remove()
       poopSpawn('#'+newY+"_"+newX)
   }else if($('#'+newY+"_"+newX).has('.poop').length){
