@@ -8,6 +8,7 @@ $(document).ready(function() {
 
   spawnStar()
   spawnFish()
+  spawnSun()
 })
 
 //set game variables
@@ -38,6 +39,15 @@ function spawnFish(){
   tempFish.setAttribute("dir", "right")
   tempFish.style.background = "url(./Public/sprites/fish_right.png) 0px 0px"
   $('#6_6').append(tempFish)
+}
+
+//TEST for spawnSunSpot
+function spawnSun(){
+  let tempSun = document.createElement('div')
+  tempSun.className = "sunSpot"
+  tempSun.style.background = "url(./Public/sprites/sunlight.png) 0px 0px"
+  let rand = Math.floor(Math.random() * (roomSize -2)) +2
+  $('#0_'+rand).append(tempSun)
 }
 
 requestAnimationFrame(mainLoop);
@@ -145,7 +155,7 @@ function movePlayer(direction){
         hunger = 200
 
       $('#'+newY+"_"+newX).children('.food').remove()
-      poopSpawn('#'+newY+"_"+newX)
+      //poopSpawn('#'+newY+"_"+newX)
   }else if($('#'+newY+"_"+newX).has('.poop').length){
       hunger -= 20
       $('#'+newY+"_"+newX).children('.poop').remove()
@@ -169,12 +179,15 @@ function gameStep(){
     enemySpawn('row')
     enemySpawn('col')
   //run every 7 steps
-  } else if (turnNumber % 7 === 0) {
+  } else if(turnNumber % 7 === 0) {
     snailSpawn()
+  } else if(turnNumber % roomSize === 0){
+    //spawnSun()
   }
   moveEnemies()
   moveStar()
   moveBigFish()
+  moveSun()
 }
 
 //run each enemy step
@@ -367,6 +380,23 @@ function moveEnemies(){
         }
         checkMove(newX, newY, squids[i])
       }
+    }
+  }
+}
+
+//move sunSpot
+function moveSun(){
+  let sunSpot = document.getElementsByClassName('sunSpot')
+  if(sunSpot.length){
+    let parentDiv = sunSpot[0].parentElement
+    let oldDiv = getPos(parentDiv.id)
+    let newY = +oldDiv[0] +1
+    if(newY >= roomSize -1){
+      sunSpot[0].remove()
+    } else {
+      let newDiv = $('#'+newY+"_"+oldDiv[1])
+      newDiv.append(sunSpot[0])
+      console.log(newDiv.children)
     }
   }
 }
@@ -715,7 +745,7 @@ var offset = 0
 function animateShrimp(time) {
   var width = 32
   var height = 32
-  if (offset > 128) {
+  if (offset > 256) {
     offset = 0
   }
   setInterval(function() {
@@ -820,7 +850,7 @@ function animateStar(time) {
       starOffset = starOffset + width
   }, time)
 }
-animateStar(1000)
+animateStar(125)
 
 //bigfish animations
 function spriteBigFish() {
@@ -844,3 +874,26 @@ function animateBigFish(time) {
   }, time)
 }
 animateBigFish(200)
+
+//Sunspot animaition
+function spriteSun() {
+  let x = 0 - sunOffset
+  let sunSpot = document.getElementsByClassName("sunSpot");
+  if(sunSpot.length){
+    let facing = sunSpot[0].getAttribute("dir")
+    sunSpot[0].style.background = "url(./Public/sprites/sunlight.png) "+x+"px 0"
+  }
+}
+var sunOffset = 0
+function animateSun(time) {
+  let width = 32
+  let height = 32
+  if (sunOffset > 448) {
+    sunOffset = 0
+  }
+  setInterval(function() {
+      spriteSun()
+      sunOffset = sunOffset + width
+  }, time)
+}
+animateSun(200)
