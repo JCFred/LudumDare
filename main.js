@@ -918,3 +918,10 @@ function animateSun(time) {
   }, time)
 }
 animateSun(200)
+
+$(window).scroll(function () {
+    if ($(window).scrollTop() > 100) {
+        $('#hungerBar').css('top', $(window).scrollTop());
+    }
+}
+);
