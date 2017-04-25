@@ -107,7 +107,7 @@ function mainLoop(timestamp) {
 
 function decrementHunger(amount) {
     hunger -= amount
-    $('#hunger').css('width', hunger + 'px')
+    $('#hunger').css('height', hunger + 'px')
 }
 
 function checkHunger(){
