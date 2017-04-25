@@ -5,9 +5,6 @@ $(document).ready(function() {
   $('#gameWindow').click(function(event){
     console.log(event.target.id);
   })
-
-  spawnStar()
-  spawnFish()
   spawnSun()
 })
 
@@ -15,7 +12,10 @@ $(document).ready(function() {
 var roomSize = 20,
   gridSize = 35,
   turnNumber = 0,
-  hunger = 200;
+  hunger = 200,
+  seconds = 0,
+  minutes = 0
+
 
 //game step engine variables
 var timestep = 1000/5, //this sets the speed to 30 fps
@@ -55,6 +55,7 @@ requestAnimationFrame(mainLoop);
 function mainLoop(timestamp) {
   // Throttle the frame rate.
   if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {
+
       requestAnimationFrame(mainLoop);
       return;
   }
@@ -64,6 +65,12 @@ function mainLoop(timestamp) {
 
   // Simulate the total elapsed time in fixed-size chunks
   while (delta >= timestep) {
+    seconds += .3
+    if(seconds >= 60){
+      seconds = 0
+      minutes += 1
+    }
+    $("#time").text(minutes+ ":" +Math.floor(seconds))
       //the following is done every "step"
       document.onkeydown = function() {
         switch (event.keyCode) {
@@ -156,12 +163,6 @@ function movePlayer(direction){
 
       $('#'+newY+"_"+newX).children('.food').remove()
       //poopSpawn('#'+newY+"_"+newX)
-  }else if($('#'+newY+"_"+newX).has('.sunSpot').length){
-      hunger += 20
-
-      // Make sure hunger isn't over 200
-      if(hunger > 200)
-        hunger = 200
   }else if($('#'+newY+"_"+newX).has('.poop').length){
       hunger -= 20
       $('#'+newY+"_"+newX).children('.poop').remove()
@@ -183,25 +184,52 @@ function checkEnemies(newX, newY){
 
 //run a game step
 function gameStep(){
-  //run every 3 steps
-  if(turnNumber % 3 === 0){
-    squidSpawn()
-  //run every 5 steps
-  } else if(turnNumber % 5 === 0){
-    foodSpawn()
-    enemySpawn('row')
-    enemySpawn('col')
-  //run every 7 steps
-  } else if(turnNumber % 7 === 0) {
-    snailSpawn()
-  } else if(turnNumber % roomSize === 0){
-    //spawnSun()
+  if(minutes < 1){
+    //run every 3 steps
+    if(turnNumber % 3 === 0){
+      enemySpawn('row')
+      enemySpawn('col')
+      foodSpawn()
+    //run every 5 steps
+    }else if(turnNumber % 5 === 0) {
+      squidSpawn()
+      snailSpawn()
+    }
+  } else if(minutes === 1){
+    let stars = document.getElementsByClassName('starfish')
+    if(stars.lengths === 0){
+      spawnStar()
+    }
+    //run every 3 steps
+    if(turnNumber % 3 === 0){
+      squidSpawn()
+      foodSpawn()
+      enemySpawn('row')
+      enemySpawn('col')
+    //run every 5 steps
+    } else if(turnNumber % 5 === 0){
+      snailSpawn()
+    }
+  } else if (minutes > 2){
+    let fish = document.getElementsByClassName('bigfish')
+    if(!fish.lengths){
+      spawnFish()
+    }
+    if(turnNumber % 3 === 0){
+      squidSpawn()
+      foodSpawn()
+      enemySpawn('row')
+      enemySpawn('col')
+      snailSpawn()
+    //run every 5 steps
+    }
   }
   moveEnemies()
   moveStar()
   moveBigFish()
   moveSun()
 }
+
 
 //run each enemy step
 function moveEnemies(){
@@ -226,6 +254,8 @@ function moveEnemies(){
           $('#'+newY+"_"+newX).children('.food').remove()
           poopSpawn('#'+newY+"_"+newX)
       }
+      // If enemy hits another enemy, remove both and append pieces
+      checkEnemies(newX, newY)
     }
   }
 
@@ -395,16 +425,6 @@ function moveEnemies(){
       }
     }
   }
-}
-
-// Convert poop to food
-function poopToFood(newY, oldDiv){
-    if($('#'+newY+"_"+oldDiv).has('.poop').length){
-        $('#'+newY+"_"+oldDiv).children('.poop').remove()
-        let tempFood = document.createElement('div')
-        tempFood.className = 'food'
-        $('#'+newY+"_"+oldDiv).append(tempFood)
-    }
 }
 
 //move sunSpot
