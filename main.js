@@ -163,12 +163,6 @@ function movePlayer(direction){
 
       $('#'+newY+"_"+newX).children('.food').remove()
       //poopSpawn('#'+newY+"_"+newX)
-  }else if($('#'+newY+"_"+newX).has('.sunSpot').length){
-      hunger += 20
-
-      // Make sure hunger isn't over 200
-      if(hunger > 200)
-        hunger = 200
   }else if($('#'+newY+"_"+newX).has('.poop').length){
       hunger -= 20
       $('#'+newY+"_"+newX).children('.poop').remove()
@@ -203,7 +197,7 @@ function gameStep(){
     }
   } else if(minutes === 1){
     let stars = document.getElementsByClassName('starfish')
-    if(!stars.lengths){
+    if(stars.lengths === 0){
       spawnStar()
     }
     //run every 3 steps
@@ -260,6 +254,8 @@ function moveEnemies(){
           $('#'+newY+"_"+newX).children('.food').remove()
           poopSpawn('#'+newY+"_"+newX)
       }
+      // If enemy hits another enemy, remove both and append pieces
+      checkEnemies(newX, newY)
     }
   }
 
@@ -429,16 +425,6 @@ function moveEnemies(){
       }
     }
   }
-}
-
-// Convert poop to food
-function poopToFood(newY, oldDiv){
-    if($('#'+newY+"_"+oldDiv).has('.poop').length){
-        $('#'+newY+"_"+oldDiv).children('.poop').remove()
-        let tempFood = document.createElement('div')
-        tempFood.className = 'food'
-        $('#'+newY+"_"+oldDiv).append(tempFood)
-    }
 }
 
 //move sunSpot
