@@ -5,9 +5,6 @@ $(document).ready(function() {
   $('#gameWindow').click(function(event){
     console.log(event.target.id);
   })
-
-  spawnStar()
-  spawnFish()
   spawnSun()
 })
 
@@ -16,7 +13,8 @@ var roomSize = 20,
   gridSize = 35,
   turnNumber = 0,
   hunger = 200,
-  time
+  seconds = 0,
+  minutes = 0
 
 
 //game step engine variables
@@ -67,6 +65,12 @@ function mainLoop(timestamp) {
 
   // Simulate the total elapsed time in fixed-size chunks
   while (delta >= timestep) {
+    seconds += .3
+    if(seconds >= 60){
+      seconds = 0
+      minutes += 1
+    }
+    $("#time").text(minutes+ ":" +Math.floor(seconds))
       //the following is done every "step"
       document.onkeydown = function() {
         switch (event.keyCode) {
@@ -180,25 +184,52 @@ function checkEnemies(newX, newY){
 
 //run a game step
 function gameStep(){
-  //run every 3 steps
-  if(turnNumber % 3 === 0){
-    squidSpawn()
-  //run every 5 steps
-  } else if(turnNumber % 5 === 0){
-    foodSpawn()
-    enemySpawn('row')
-    enemySpawn('col')
-  //run every 7 steps
-  } else if(turnNumber % 7 === 0) {
-    snailSpawn()
-  } else if(turnNumber % roomSize === 0){
-    //spawnSun()
+  if(minutes < 1){
+    //run every 3 steps
+    if(turnNumber % 3 === 0){
+      enemySpawn('row')
+      enemySpawn('col')
+      foodSpawn()
+    //run every 5 steps
+    }else if(turnNumber % 5 === 0) {
+      squidSpawn()
+      snailSpawn()
+    }
+  } else if(minutes === 1){
+    let stars = document.getElementsByClassName('starfish')
+    if(!stars.lengths){
+      spawnStar()
+    }
+    //run every 3 steps
+    if(turnNumber % 3 === 0){
+      squidSpawn()
+      foodSpawn()
+      enemySpawn('row')
+      enemySpawn('col')
+    //run every 5 steps
+    } else if(turnNumber % 5 === 0){
+      snailSpawn()
+    }
+  } else if (minutes > 2){
+    let fish = document.getElementsByClassName('bigfish')
+    if(!fish.lengths){
+      spawnFish()
+    }
+    if(turnNumber % 3 === 0){
+      squidSpawn()
+      foodSpawn()
+      enemySpawn('row')
+      enemySpawn('col')
+      snailSpawn()
+    //run every 5 steps
+    }
   }
   moveEnemies()
   moveStar()
   moveBigFish()
   moveSun()
 }
+
 
 //run each enemy step
 function moveEnemies(){
