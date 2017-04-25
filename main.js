@@ -431,6 +431,16 @@ function moveEnemies(){
   }
 }
 
+// Convert poop to food
+function poopToFood(newY, oldDiv){
+    if($('#'+newY+"_"+oldDiv).has('.poop').length){
+        $('#'+newY+"_"+oldDiv).children('.poop').remove()
+        let tempFood = document.createElement('div')
+        tempFood.className = 'food'
+        $('#'+newY+"_"+oldDiv).append(tempFood)
+    }
+}
+
 //move sunSpot
 function moveSun(){
   let sunSpot = document.getElementsByClassName('sunSpot')
