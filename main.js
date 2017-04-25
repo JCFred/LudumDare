@@ -163,6 +163,12 @@ function movePlayer(direction){
 
       $('#'+newY+"_"+newX).children('.food').remove()
       //poopSpawn('#'+newY+"_"+newX)
+  }else if($('#'+newY+"_"+newX).has('.sunSpot').length){
+      hunger += 20
+
+      // Make sure hunger isn't over 200
+      if(hunger > 200)
+        hunger = 200
   }else if($('#'+newY+"_"+newX).has('.poop').length){
       hunger -= 20
       $('#'+newY+"_"+newX).children('.poop').remove()
@@ -254,8 +260,6 @@ function moveEnemies(){
           $('#'+newY+"_"+newX).children('.food').remove()
           poopSpawn('#'+newY+"_"+newX)
       }
-      // If enemy hits another enemy, remove both and append pieces
-      checkEnemies(newX, newY)
     }
   }
 
