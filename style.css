@@ -1,22 +1,115 @@
-header{
-  display:flex;
-  justify-content: space-between;
-}
-main{
-  display:flex;
-  justify-content: center;
-  align-items: center;
+header {
+    display: flex;
+    justify-content: space-between;
 }
 
-.instructions {
-  display: flex;
-  flex-direction: column;
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.bigfish {
+    width: 96px;
+    height: 96px;
+    position: absolute;
+    z-index: 2;
 }
 
 .eat {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
+}
+
+.food {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    z-index: 1;
+}
+
+.gameArea {
+    display: flex;
+    flex-direction: row;
+}
+
+.gridBox {
+    border: 1px solid black;
+    background-color: rgb(107, 219, 213);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+}
+
+.instruction {
+    width: 20%;
+}
+
+.instructions {
+    display: flex;
+    flex-direction: column;
+}
+
+.pieces {
+    width: 32px;
+    height: 32px;
+    background-color: yellow;
+}
+
+.poop {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    z-index: 1;
+}
+
+.shrimpRow, .shrimpCol {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    z-index: 2;
+}
+
+.snailA {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    z-index: 2;
+}
+
+.squid {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    z-index: 2;
+}
+
+.starfish {
+    width: 96px;
+    height: 96px;
+    position: absolute;
+    position: absolute;
+    z-index: 3;
+}
+
+.sunSpot {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    z-index: 5;
+}
+
+#gameWindow {
+    border: 1px solid black;
+    box-sizing: content-box;
+    display: flex;
+    flex-wrap: wrap;
+    width: 720px;
+    height: 720px;
+    z-index: 0;
 }
 
 #hunger {
@@ -25,102 +118,18 @@ main{
     background-color: red;
 }
 
-.gridBox{
-  border:1px solid black;
-  background-color: rgb(107, 219, 213);
-  box-sizing: border-box;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-
-  width:36px;
-  height:36px;
-}
-.shrimpRow, .shrimpCol{
-  width:32px;
-  height:32px;
-  position: absolute;
-  z-index: 2;
-}
-.snailA{
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  z-index: 2;
-}
-
-.poop{
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  z-index: 1;
-}
-.squid{
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  z-index: 2;
-}
-.food{
-  width: 32px;
-  height:32px;
-  position: absolute;
-  z-index: 1;
-}
-.pieces{
-    width: 32px;
-    height:32px;
-    background-color: yellow;
-}
-.sunSpot{
-  width: 32px;
-  height:32px;
-  position: absolute;
-  z-index: 5;
-}
-.starfish{
-  width:96px;
-  height:96px;
-  position:absolute;
-  position: absolute;
-  z-index: 3;
-}
-.bigfish{
-  width:96px;
-  height:96px;
-  position:absolute;
-  z-index: 2;
-}
-#player{
-  width: 32px;
-  height:32px;
-  position: absolute;
-  z-index: 4;
-}
-#gameWindow{
-  border:1px solid black;
-  box-sizing: content-box;
-  display:flex;
-  flex-wrap:wrap;
-  width: 720px;
-  height:720px;
-  z-index: 0;
-}
-
-.instruction {
-  width: 20%;
-}
-
-.gameArea {
-  display: flex;
-  flex-direction: row;
-}
-
 #hungerBar {
     position: relative;
     top: 100px;
-		left: 400px;
+    left: 400px;
     width: 10%;
     background: #CCC;
     height: 300px;
+}
+
+#player {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    z-index: 4;
 }
