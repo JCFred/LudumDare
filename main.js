@@ -196,8 +196,8 @@ function movePlayer(direction) {
 
 function checkEnemies(newX, newY) {
     if ($('#' + newY + '_' + newX).has('div').length) {
-        $('#' + newY + '_' + newX).children('div').remove()
-        piecesSpawn('#' + newY + '_' + newX)
+        // $('#' + newY + '_' + newX).children('div').remove()
+        // piecesSpawn('#' + newY + '_' + newX)
     }
 }
 
